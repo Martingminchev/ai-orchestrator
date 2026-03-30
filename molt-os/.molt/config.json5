@@ -1,0 +1,29 @@
+{
+  models: {
+    primary: {
+      provider: 'kimi',
+      apiKey: '', // Set via KIMI_API_KEY environment variable
+      model: 'k2.5',
+    },
+  },
+  paths: {
+    moltDir: '.molt',
+    skillsDir: '.molt/skills',
+    dataDir: '.molt/data',
+    workDir: '.molt/work',
+  },
+  context: {
+    globalFile: '.molt/global.md',
+    maxContextTokens: 128000,
+    enableHotReload: true,
+  },
+  worker: {
+    timeoutMinutes: 30,
+    maxRetries: 3,
+    enableParallel: true,
+  },
+  ui: {
+    port: 3000,
+    devMode: false,
+  },
+}

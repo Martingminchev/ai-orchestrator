@@ -1,0 +1,90 @@
+{
+  "name": "molt-os",
+  "version": "0.1.0",
+  "description": "MOLT-OS - MOLT Orchestrator Terminal Operating System",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
+  "bin": {
+    "molt-os": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts",
+    "check": "pnpm lint && pnpm format",
+    "dev": "node --import tsx src/cli/run-main.ts",
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt --write",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix && pnpm format:fix",
+    "start": "node dist/cli/run-main.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.0.0",
+    "chalk": "^5.6.2",
+    "chokidar": "^5.0.0",
+    "commander": "^14.0.0",
+    "dotenv": "^17.2.3",
+    "glob": "^11.0.0",
+    "jiti": "^2.6.1",
+    "json5": "^2.2.3",
+    "proper-lockfile": "^4.1.2",
+    "tslog": "^4.10.2",
+    "undici": "^7.20.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.0",
+    "@types/proper-lockfile": "^4.1.4",
+    "oxfmt": "0.28.0",
+    "oxlint": "^1.43.0",
+    "tsdown": "^0.20.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@10.23.0",
+  "vitest": {
+    "coverage": {
+      "provider": "v8",
+      "reporter": [
+        "text",
+        "lcov"
+      ],
+      "thresholds": {
+        "lines": 70,
+        "functions": 70,
+        "branches": 70,
+        "statements": 70
+      },
+      "include": [
+        "src/**/*.ts"
+      ],
+      "exclude": [
+        "src/**/*.test.ts"
+      ]
+    },
+    "include": [
+      "src/**/*.test.ts",
+      "tests/**/*.test.ts"
+    ],
+    "exclude": [
+      "dist/**",
+      "src/agents/**/*.test.ts",
+      "src/tools/**/*.test.ts"
+    ]
+  }
+}

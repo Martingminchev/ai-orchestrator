@@ -1,0 +1,95 @@
+{
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  directories: {
+    output: "release",
+    buildResources: "build",
+  },
+  files: ["dist/**/*", "!**/node_modules/**", "!**/*.ts", "!**/*.map", "!**/*.md"],
+  win: {
+    target: [
+      {
+        target: "nsis",
+        arch: ["x64"],
+      },
+      {
+        target: "zip",
+        arch: ["x64"],
+      },
+    ],
+    icon: "build/icon.ico",
+    artifactName: "MOLT-OS-Setup-${version}.exe",
+    signing: {
+      hashAlgorithm: "sha256",
+      timestampServer: "http://timestamp.digicert.com",
+    },
+  },
+  mac: {
+    target: [
+      {
+        target: "dmg",
+        arch: ["x64", "arm64"],
+      },
+    ],
+    icon: "build/icon.icns",
+    artifactName: "MOLT-OS-${version}.dmg",
+    category: "public.app-category.developer-tools",
+    darkModeSupport: true,
+  },
+  linux: {
+    target: [
+      {
+        target: "AppImage",
+        arch: ["x64"],
+      },
+      {
+        target: "deb",
+        arch: ["x64"],
+      },
+    ],
+    icon: "build/icon.png",
+    artifactName: "MOLT-OS-${version}.AppImage",
+    synopsis: "Multi-Orchestrator LLM Task Operating System",
+    description: "A modern, modular LLM orchestration system built with Electron",
+    category: "Development;IDE",
+  },
+  nsis: {
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    createDesktopShortcut: true,
+    createStartMenuShortcut: true,
+    perMachine: false,
+    include: "build/installer.nsh",
+    script: "build/installer.nsi",
+  },
+  dmg: {
+    title: "Install MOLT-OS",
+    background: "build/background.png",
+    icon: "build/icon.icns",
+    contents: [
+      {
+        x: 150,
+        y: 180,
+        type: "file",
+        path: "MOLT-OS.app",
+      },
+      {
+        x: 400,
+        y: 180,
+        type: "link",
+        path: "/Applications",
+      },
+    ],
+  },
+  appx: {
+    applicationId: "MoltOS",
+    displayName: "MOLT-OS",
+    publisher: "CN=MOLT Team",
+    identityName: "MoltOS",
+    logo: "build/icon.png",
+  },
+  afterSign: "build/notarize.js",
+  compression: "maximum",
+  nodeGypRebuild: false,
+  buildDependenciesFromSource: false,
+  remoteBuild: false,
+}
